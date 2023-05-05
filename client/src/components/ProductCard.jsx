@@ -35,7 +35,7 @@ const Rating = ({ rating, numReviews }) => {
 }
 
 const ProductCard = ({ product }) => {
-  const { id, isNew, stock, image, name, price, rating, numReviews } = product;
+  const { _id, isNew, stock, image, name, price, rating, numReviews } = product;
   return (
     <Stack
       p='2'
@@ -62,13 +62,13 @@ const ProductCard = ({ product }) => {
         { 
           isNew && (
             <Badge rounded='full' px='2' fontSize='0.8em' colorScheme='green'>
-              Sold out
+              New product
             </Badge>
           )
         }
       </Box>
       <Flex mt='1' justifyContent='space-between' alignContent='center'>
-        <Link as={ReactLink} to={`/product${id}`} pt='2' cursor='pointer'>
+        <Link as={ReactLink} to={`/product${_id}`} pt='2' cursor='pointer'>
           <Box fontSize='2x1' fontWeight='semeBold' lineHeight='tight'>
             {name}
           </Box>
@@ -80,7 +80,7 @@ const ProductCard = ({ product }) => {
       <Flex justify='space-between' >
         <Box fontSize='2x1' color={useColorModeValue('gray.800', 'white')} pl='2' fontWeight='bold'>
           <Box as='span' color='gray.600' fontSize='lg'>$</Box>
-          {price.toFixed(2)}
+          {price}
         </Box>
         <Tooltip label='Add to cart' bg='white' placement='top' color='gray.800' fontSize='1.2em'>
           <Button variant='ghost' display='flex' disable={stock <=0}>

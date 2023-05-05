@@ -12,11 +12,13 @@ const ProductsPage = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  console.log(products);
+
   return (
     <Wrap spacing='30px' justify='center' minHeight='100vh'>
       {
         products.map((product) => (
-          <WrapItem key={product.id}>
+          <WrapItem key={product._id}>
             <Center w='250px' h='550px'>
               <ProductCard product={product} />
             </Center>
