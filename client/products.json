@@ -1,0 +1,303 @@
+[{
+  "_id": {
+    "$oid": "636985e59540445b3c45e6af"
+  },
+  "name": "iPhone 11 Pro 256GB Memory",
+  "image": "/images/iphone.jpg",
+  "description": "Shoot 4K video, beautiful portraits and sweeping landscapes with the all-new dual-camera system. Capture your best low-light photos with Night mode. See true-to-life colour in your photos, videos and games on the 6.1-inch Liquid Retina display.3 Experience unprecedented performance with A13 Bionic for gaming, augmented reality and photography",
+  "brand": "Apple",
+  "category": "Electronics",
+  "price": 929.99,
+  "rating": 1,
+  "numberOfReviews": 0,
+  "productIsNew": false,
+  "__v": 17,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672196613044"
+    }
+  },
+  "reviews": [],
+  "stock": 5
+},{
+  "_id": {
+    "$oid": "6369860d9540445b3c45e6b1"
+  },
+  "name": "Samsung Galaxy Tab S6",
+  "image": "/images/tab.jpg",
+  "description": "Galaxy Tab S6 Lite is your super carriable note-taking, go-getting companion. It comes with a large 10.4 inch display on a slim and light build, One UI 4 on Android, and S Pen in box and ready to go. Whether you're drawing, learning or gaming, this is the tablet made to be in the moment.",
+  "brand": "Sony",
+  "category": "Electronics",
+  "price": 399.99,
+  "countInStock": 11,
+  "rating": 5,
+  "numberOfReviews": 0,
+  "productIsNew": false,
+  "__v": 7,
+  "reviews": [],
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670297955426"
+    }
+  },
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "6369863c9540445b3c45e6b3"
+  },
+  "name": "Samsung Galaxy Watch5 Pro",
+  "image": "/images/s4prowatch.jpg",
+  "description": "Get a better handle on your games with this Logitech LIGHTSYNC gaming mouse. The six programmable buttons allow customization for a smooth playing experience",
+  "brand": "Logitech",
+  "category": "Electronics",
+  "price": 299.99,
+  "rating": 1,
+  "numberOfReviews": 0,
+  "productIsNew": false,
+  "__v": 7,
+  "reviews": [],
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672196399649"
+    }
+  },
+  "stock": 7
+},{
+  "_id": {
+    "$oid": "636986579540445b3c45e6b5"
+  },
+  "name": "Samsung Galaxy S4 Watch",
+  "image": "/images/s4watch.jpg",
+  "description": "Meet Echo Dot - Our most popular smart speaker with a fabric design. It is our most compact smart speaker that fits perfectly into small space",
+  "brand": "Amazon",
+  "category": "Electronics",
+  "price": 299.99,
+  "rating": 4,
+  "numberOfReviews": 1,
+  "productIsNew": false,
+  "__v": 1,
+  "reviews": [
+    {
+      "name": "bernie",
+      "rating": 4,
+      "comment": "asdfasfdas",
+      "title": "Highly rec 5",
+      "user": {
+        "$oid": "637c1a2363ed71e16e4aab8a"
+      },
+      "_id": {
+        "$oid": "637d2b3d7ae116b9cf56aac5"
+      },
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1669147453482"
+        }
+      },
+      "updatedAt": {
+        "$date": {
+          "$numberLong": "1669147453482"
+        }
+      }
+    }
+  ],
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669147453482"
+    }
+  },
+  "stock": 1
+},{
+  "_id": {
+    "$oid": "636986749540445b3c45e6b7"
+  },
+  "name": "Samsung Galaxy S21 128GB",
+  "image": "/images/s22.jpg",
+  "description": "Miss nothing, with Galaxy S21 5G. A camera so good, everyone's a pro. When capturing your best moments, you no longer have to choose between photo and video. Galaxy S21 captures both, simultaneously, so you'll never miss a moment. Capture big screen quality videos in stunning 8K resolution* and zoom in with less pixilation with 3x Optical Zoom.",
+  "brand": "Amazon",
+  "category": "Electronics",
+  "price": 699.99,
+  "rating": 5,
+  "numberOfReviews": 0,
+  "productIsNew": false,
+  "stock": 0,
+  "__v": 1,
+  "reviews": [],
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1670298130566"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "63804a5079636c2ced47757d"
+  },
+  "name": "Apple Watch",
+  "image": "/images/apple-watch.jpg",
+  "brand": "Apple",
+  "category": "Electronics",
+  "description": "Essential features to help you stay connected, active, healthy and safe. Perfect for kids and older adults using Family Setup.",
+  "rating": 5,
+  "numberOfReviews": 1,
+  "price": 699.99,
+  "stock": 5,
+  "productIsNew": true,
+  "reviews": [
+    {
+      "name": "ben",
+      "rating": 5,
+      "comment": "great",
+      "title": "great",
+      "user": {
+        "$oid": "6393b16483aca694ee402501"
+      },
+      "_id": {
+        "$oid": "63a3e0a5a444c2aa4380a62b"
+      },
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1671684261784"
+        }
+      },
+      "updatedAt": {
+        "$date": {
+          "$numberLong": "1671684261784"
+        }
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669352016956"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1671684261784"
+    }
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "6381275e8e8648e00b7c82f7"
+  },
+  "name": "Shure MV7",
+  "image": "/images/shure-mv7.jpg",
+  "brand": "Shure",
+  "category": "Microphones",
+  "description": "Get a professional podcast sound with audio interfaces, hard disk recorders, or direct to computers and mobile devices with the Shure MV7 Podcasting Microphone (Black). This is a professional-quality, broadcast-style dynamic microphone, one that can has both a conventional XLR connection and a USB port. It also supports a 3.5mm headphone output for direct monitoring.",
+  "rating": 3,
+  "numberOfReviews": 1,
+  "price": 449,
+  "stock": 2,
+  "productIsNew": true,
+  "reviews": [
+    {
+      "name": "ben",
+      "rating": 3,
+      "comment": "test",
+      "title": "test",
+      "user": {
+        "$oid": "6393b16483aca694ee402501"
+      },
+      "_id": {
+        "$oid": "63a3df5d562a9a139961192b"
+      },
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1671683933351"
+        }
+      },
+      "updatedAt": {
+        "$date": {
+          "$numberLong": "1671683933351"
+        }
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669408606318"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1671683933352"
+    }
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "63895d3b2a3e062504353022"
+  },
+  "name": "Samsung A73",
+  "image": "/images/a73.jpg",
+  "brand": "Samsung",
+  "category": "Electronics",
+  "description": "Blazing 5G. Powerfully connected. It's time to enter into the next chapter. Seriously-fast 5G connection takes your everyday mobile experiences and vastly enhances them with next-level speed. Feel truly connected with seamless streaming, instant sharing and the power to transfer your thoughts to action in a blink.",
+  "rating": 5,
+  "numberOfReviews": 1,
+  "price": 899.99,
+  "stock": 49,
+  "productIsNew": true,
+  "reviews": [
+    {
+      "name": "admin",
+      "rating": 5,
+      "comment": "asdfas",
+      "title": "asdfas",
+      "user": {
+        "$oid": "637ea4e9abbb513d7a9dfa1c"
+      },
+      "_id": {
+        "$oid": "63895d5c2a3e062504353038"
+      },
+      "createdAt": {
+        "$date": {
+          "$numberLong": "1669946716055"
+        }
+      },
+      "updatedAt": {
+        "$date": {
+          "$numberLong": "1669946716055"
+        }
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669946683780"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672196334329"
+    }
+  },
+  "__v": 3
+},{
+  "_id": {
+    "$oid": "63aba07d5c3423c1dc26fd3a"
+  },
+  "name": "Samsung Galaxy Z Flip4 5G",
+  "image": "/images/flip.jpg",
+  "brand": "Samsung",
+  "category": "Electronics",
+  "description": "Introducing Samsung Galaxy Z Flip4. Fold it, flip it, stand it. Capture photos and videos hands-free with a camera designed to stand on its own with revolutionary folding glass or get that quick selfie when folded for moments that can't wait. ",
+  "rating": 0,
+  "numberOfReviews": 0,
+  "price": "499.99",
+  "stock": 20,
+  "productIsNew": false,
+  "reviews": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1672192125018"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1672192151949"
+    }
+  },
+  "__v": 0
+}]
