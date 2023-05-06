@@ -1,7 +1,6 @@
 import { Box, Flex, Heading, HStack, Link, Stack, useColorModeValue as mode, Spinner, Alert, AlertIcon, AlertTitle, AlertDescription, Wrap } from '@chakra-ui/react';
 import { Link as ReactLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../redux/actions/productActions';
 import { useEffect } from 'react';
 import CartItem from '../components/CartItem';
 
@@ -9,8 +8,6 @@ const CartPage = () => {
   const dispatch = useDispatch();
 
   const { loading, error, cart } = useSelector((state) => state.cart);
-
-  console.log(error);
 
   return (
     <Wrap spacing='30px' justify='center' minHeight='100vh'>

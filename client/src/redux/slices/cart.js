@@ -20,9 +20,9 @@ const cartSlice = createSlice({
       if (existingItems) {
         state.cart = state.cart.map((item) => item.id === existingItems.id ? payload : item)
       } else {
-        state.cart = [...state.cart, payload];
+        console(payload);
+        state.cart.cart = [...state.cart.cart, payload];
       }
-      state.loading = false;
       state.loading = false;
     },
     setError: (state, { payload }) => {

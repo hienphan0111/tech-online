@@ -20,7 +20,6 @@ const CartOrderSummary = () => {
 
   };
 
-
   return (
     <Stack spacing='8' borderWidth='1px' rounded='lg' padding='8' w='full'>
       <Heading size='md' >
@@ -58,3 +57,5 @@ const CartOrderSummary = () => {
     </Stack>
   )
 }
+
+export default CartOrderSummary;
