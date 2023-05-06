@@ -9,13 +9,17 @@ const CartOrderSummary = () => {
   const [buttonLoading, setButtonLoading] = useState();
   const standardShipping = Number(4.99).toFixed(2);
   const cartItems = useSelector((state) => state.cart);
+
   const { subtotal } = cartItems;
+
   const navigate = useNavigate;
 
   const checkoutHandler = () => {
     setButtonLoading(true);
     navigate('/checkout');
+
   };
+
 
   return (
     <Stack spacing='8' borderWidth='1px' rounded='lg' padding='8' w='full'>
