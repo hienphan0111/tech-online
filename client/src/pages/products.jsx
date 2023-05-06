@@ -12,8 +12,6 @@ const ProductsPage = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  console.log(products);
-
   return (
     <Wrap spacing='30px' justify='center' minHeight='100vh'>
       {

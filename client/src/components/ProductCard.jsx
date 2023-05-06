@@ -11,12 +11,15 @@ import {
     Stack,
     Link,
     HStack,
-    Text
+    Text,
+    useToast
 } from '@chakra-ui/react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link as ReactLink } from 'react-router-dom';
 import { StarIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCartItem } from '../redux/actions/cartActions';
 
 const Rating = ({ rating, numberOfReviews }) => {
   const [iconSize, setIconSize] = useState('14px');
@@ -35,6 +38,25 @@ const Rating = ({ rating, numberOfReviews }) => {
 }
 
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const cartInfo = useSelector((state) => state.cart);
+  const { cart } = cartInfo;
+
+  const addItem = (id) => {
+    if (cart.some((cartItem) => cartItem.id === id)) {
+      toast({
+        description: 'This item already in your card. Go to your cart to change the quantity',
+        status: 'error',
+        isClosable: true,
+    });
+    } else {
+      dispatch(addCartItem(id, 1));
+      toast({description: 'Item has been added', status: 'success', isClosable: true});
+    }
+  }
+
   const { _id, isNew, stock, image, name, price, rating, numberOfReviews } = product;
   return (
     <Stack
@@ -83,7 +105,7 @@ const ProductCard = ({ product }) => {
           {price}
         </Box>
         <Tooltip label='Add to cart' bg='white' placement='top' color='gray.800' fontSize='1.2em'>
-          <Button variant='ghost' display='flex' disable={stock <=0}>
+          <Button variant='ghost' display='flex' disable={stock <= 0} onClick={() => addItem(_id)}>
             <Icon as={FiShoppingCart} h={7} w={7} alignSelf='center' />
           </Button>
         </Tooltip>
