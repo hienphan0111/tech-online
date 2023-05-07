@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import { setLoading, setError, cartAddItem } from '../slices/cart';
+import { setLoading, setError, cartAddItem, cartRemoveItem } from '../slices/cart';
 
 export const addCartItem = (id, qty) => async (dispatch) => {
   dispatch(setLoading(true));
   try {
     const { data } = await axios.get(`/api/products/${id}`);
     const itemToAdd = {
-      id: data.id,
+      id: data._id,
       name: data.name,
       image: data.image,
       price: data.price,
@@ -26,4 +26,8 @@ export const addCartItem = (id, qty) => async (dispatch) => {
       )
     );
   }
+}
+
+export const removeCartItem = (id) => (dispatch) => {
+  dispatch(cartRemoveItem(id));
 }
