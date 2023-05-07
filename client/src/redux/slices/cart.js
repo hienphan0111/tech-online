@@ -1,12 +1,28 @@
 import { createReducer, createSlice } from '@reduxjs/toolkit';
 
+const calculateSubtotal = (cart) => {
+  let result = 0;
+  cart.forEach((item) => {
+    result += item.price * item.qty;
+  })
+  return Number(result).toFixed(2);
+};
+
+const cartLocal = JSON.parse(localStorage.getItem('cart')) ?? [];
+const subTotalLocal = JSON.parse(localStorage.getItem('subTotal')) ?? 0;
+
 const initialState = {
   loading: false,
   error: null,
-  cart: [],
+  cart: cartLocal,
   expressShipping: false,
-  subTotal: 0,
+  subTotal: subTotalLocal,
 };
+
+const updateLocalStorage = (cart) => {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('subTotal', calculateSubtotal(cart));
+}
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -20,10 +36,18 @@ const cartSlice = createSlice({
       if (existingItems) {
         state.cart = state.cart.map((item) => item.id === existingItems.id ? payload : item)
       } else {
-        console(payload);
-        state.cart.cart = [...state.cart.cart, payload];
+        state.cart = [...state.cart, payload];
       }
       state.loading = false;
+      updateLocalStorage(state.cart);
+      state.subTotal = calculateSubtotal(state.cart);
+    },
+    cartRemoveItem: (state, {payload}) => {
+      const cartRemain = state.cart.filter((item) => item.id !== payload );
+      state.cart = cartRemain;
+      state.loading = false;
+      updateLocalStorage(state.cart);
+      state.subTotal = calculateSubtotal(state.cart);
     },
     setError: (state, { payload }) => {
       state.error = payload;
@@ -32,7 +56,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setError, setLoading, cartAddItem } = cartSlice.actions;
+export const { setError, setLoading, cartAddItem, cartRemoveItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
 
