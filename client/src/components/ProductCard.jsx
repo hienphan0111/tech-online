@@ -105,7 +105,7 @@ const ProductCard = ({ product }) => {
           {price}
         </Box>
         <Tooltip label='Add to cart' bg='white' placement='top' color='gray.800' fontSize='1.2em'>
-          <Button variant='ghost' display='flex' disable={stock <= 0} onClick={() => addItem(_id)}>
+          <Button variant='ghost' display='flex' isDisabled={stock <= 0} onClick={() => addItem(_id)}>
             <Icon as={FiShoppingCart} h={7} w={7} alignSelf='center' />
           </Button>
         </Tooltip>

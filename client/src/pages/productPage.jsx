@@ -114,15 +114,65 @@ const ProductPage = () => {
                         <MinusIcon />
                       </Button>
                       <Text>{amount}</Text>
-                      <Button isDisable={ amount >= product.stock } onClick={() => changeAmount('plus')}>
+                      <Button isDisabled={ amount >= product.stock } onClick={() => changeAmount('plus')}>
                         <SmallAddIcon w='20px' h='25px' />
                       </Button>
                     </Flex>
-                    <Button colorScheme='orange.500' w='full' onClick={() => addItem()}>
+                    {
+                      product.stock > 0 ? (<Button colorScheme='orange' onClick={() => addItem()}>
                       Add to Cart
-                    </Button>
+                      </Button>) : <Text color='red.300'>Sold out</Text>
+                    }
+                    <Stack width='270px'>
+                      <Flex alignItems='center'>
+                        <BiPackage size='20px' />
+                        <Text fontWeight='medium' fontSize='sm' ml='2'>
+                          Free Shipping if order is above $1000
+                        </Text>
+                      </Flex>
+                      <Flex alignItems='center'>
+                        <BiCheckShield size='20px' />
+                        <Text fontWeight='medium' fontSize='sm' ml='2'>
+                          2 year extended warranty
+                        </Text>
+                      </Flex>
+                      <Flex alignItems='center'>
+                        <BiSupport size='20px' />
+                        <Text fontWeight='medium' fontSize='sm' ml='2'>
+                          We here for you 24/4
+                        </Text>
+                      </Flex>
+                    </Stack>
                   </Stack>
                 </Stack>
+                <Flex direction='column' align='center' flex='1' _dark={{ bg: 'gray.900' }}>
+                  <Image mb='30px' src={product.image} alt={product.name} />
+                </Flex>
+            </Stack>
+            <Stack>
+              <Text fontSize='xl' fontWeight='bold'>Reviews</Text>
+              <SimpleGrid minChildWild='300px' spacinY='20px'>
+                {
+                  product.reviews.map((item) => (
+                    <Box key={item._id}>
+                      <Flex spacing alignItems='center'>
+                        <StarIcon color='orange.500' />
+                        <StarIcon color={item.rating >=2 ? 'orange.500' : 'gray.200'} />
+                        <StarIcon color={item.rating >=3 ? 'orange.500' : 'gray.200'} />
+                        <StarIcon color={item.rating >=4 ? 'orange.500' : 'gray.200'} />
+                        <StarIcon color={item.rating >=5 ? 'orange.500' : 'gray.200'} />
+                        <Text fontWeight='semibold' ml='4px'>
+                          {item.title && item.title}
+                        </Text>
+                      </Flex>
+                      <Box py='12px'>{item.comment}</Box>
+                      <Text fontSize='sm' color='gray.400'>
+                        by {item.name}, { new Date(item.createAt).toDateString()}
+                      </Text>
+                    </Box>
+                  ))
+                }
+              </SimpleGrid>
             </Stack>
             </Box>
         )
