@@ -11,9 +11,9 @@ const PasswordTextField = ({ label, type, name, placeholder }) => {
 
   return (
     <FormControl isInvalid={meta.error && meta.touched } md='6'>
-      <FormLabel noOfLine={1}>{label}</FormLabel>
-      <Field as={Input} {...field} type={type} name={name} placeholder={placeholder} />
-      <InputGroup>
+      <FormLabel noOfLines={1}>{label}</FormLabel>
+      <InputGroup alignItems="center">
+        <Field as={Input} {...field} type={showPassword ? 'text' : type } name={name} placeholder={placeholder} />
         <InputRightElement h='full' alignItems="center">
           <Button variant='ghost' onClick={()=> setShowPassword(!showPassword)}>
             {showPassword ? <ViewIcon /> : <ViewOffIcon />}

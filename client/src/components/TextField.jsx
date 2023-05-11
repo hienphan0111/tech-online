@@ -7,7 +7,7 @@ const TextField = ({ label, type, name, placeholder }) => {
 
   return (
     <FormControl isInvalid={ meta.error && meta.touched } md='6'>
-      <FormLabel noOfLine={1}>{label}</FormLabel>
+      <FormLabel noOfLines={1}>{label}</FormLabel>
       <Field as={Input} {...field} type={type} name={name} placeholder={placeholder} />
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>

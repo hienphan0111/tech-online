@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
   Heading,
@@ -9,25 +8,23 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue,
-  Alert,
-  AlertTitle,
-  AlertDescription,
-  useToast,
+  useColorModeValue as mode,
   AlertIcon,
+  AlertTitle,
+  Alert,
+  AlertDescription,
+  useToast
 } from '@chakra-ui/react';
-
-import { useState, useEffect } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, Link as ReactLink, useLocation } from 'react-router-dom';
 import TextField from '../components/TextField';
 import PasswordTextField from '../components/PasswordTextField';
-import { login } from '../redux/actions/userActions';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { useNavigate, Link as ReactLink, useLocation } from 'react-router-dom';
+import { register } from '../redux/actions/userActions';
 
-const LoginPage = () => {
-
+const RegistrationPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -41,26 +38,26 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (userInfo) {
-      if (location.state?.from) {
-        navigate(location.state.from);
-      } else {
-        navigate(redirect);
-      }
-      toast({ description: 'Login successful', status: 'success', isClosable: true});
+      navigate(redirect);
+      toast({ description: 'Account create successfully', status: 'success', isClosable: true});
     }
-  }, [userInfo, redirect, error, navigate, location.state, toast]);
+  }, [userInfo, redirect, error, navigate, toast]);
 
   return (
     <Formik
-      initialValues={{email: '', password: ''}}
+      initialValues={{name: '', email: '', password: ''}}
       validationSchema={
         Yup.object({
+          name: Yup.string().required('A name is required'),
           email: Yup.string().email('Invalid email.').required('Email is required'),
-          password: Yup.string().min(5, 'Password is too short - must be at least 5').required('Password is required')
+          password: Yup.string().min(5, 'Password is too short - must be at least 5').required('Password is required'),
+          confirmPassword: Yup.string()
+            .required('Password is required')
+            .oneOf([Yup.ref('password'), null], 'Password must match'),
         })
       }
       onSubmit={(values) => {
-        dispatch(login(values.email, values.password))
+        dispatch(register(values.name, values.email, values.password ))
       }}
     >
       {
@@ -69,11 +66,11 @@ const LoginPage = () => {
             <Stack spacing='8'>
               <Stack spacing='8'>
                 <Stack spacing={{base: '2', md: '3'}} textAlign='center'>
-                  <Heading size={headingBR}>Login to your account</Heading>
+                  <Heading size={headingBR}>Create an account</Heading>
                   <HStack spacing='1' justify='center'>
-                    <Text color='muted'>Don't have account</Text>
+                    <Text color='muted'>Already have account</Text>
                     <Button as={ReactLink} to='/registration' variant='link' colorScheme='orange'>
-                      Sign up
+                      Sign in
                     </Button>
                   </HStack>
                 </Stack>
@@ -95,13 +92,15 @@ const LoginPage = () => {
                   }
                   <Stack spacing='5'>
                     <FormControl>
+                    <TextField type="text" name="name" placeholder="Your name" label="Email" />
                       <TextField type="text" name="email" placeholder="you@email.com" label="Email" />
                       <PasswordTextField type="password" name="password" placeholder="your password" label="Password" />
+                      <PasswordTextField type="password" name="confirmPassword" placeholder="confirm your password" label="Confirm Password" />
                     </FormControl>
                   </Stack>
                   <Stack spacing='5'>
                     <Button colorScheme="orange" size="lg" fontSize="md" isLoading={loading} type="submit">
-                      Sign In
+                      Sign up
                     </Button>
                   </Stack>
                 </Stack>
@@ -114,4 +113,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default RegistrationPage;
