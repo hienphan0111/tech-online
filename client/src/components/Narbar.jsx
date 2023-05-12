@@ -10,15 +10,42 @@ import {
   Button,
   Stack,
   useColorModeValue,
-  useColorMode
+  useColorMode,
+  useToast,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuDivider,
 } from '@chakra-ui/react';
-import { Link as ReactLink } from 'react-router-dom';
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { GiTechnoHeart } from 'react-icons/gi';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/actions/userActions';
+import { MdLocalShipping, MdLogout } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg'
+import React from 'react';
+import { FiShoppingCart } from 'react-icons/fi';
+
+const ShoppingCardIcon = () => {
+  const cartInfo = useSelector(state => state.cart);
+  const { cart } = cartInfo;
+
+  return (
+    <Flex>
+      <Text fontStyle='italic' as='sub' fontSize='xs'>
+        {cart.length}
+      </Text>
+      <Icon ml='-1.5' as={FiShoppingCart} h='4' w='7' alignSelf='center' />
+      <Text>Cart</Text>
+    </Flex>
+  )
+}
 
 const links = [
   { linkName: 'Products', path: './products'},
-  { linkName: 'ShoppingCard', path: './cart'}
+  { linkName: <ShoppingCardIcon />, path: './cart'}
 ];
 
 const NavLink = ({ path, children }) => (
@@ -37,6 +64,18 @@ const NavLink = ({ path, children }) => (
 const Navbar = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
+  const user = useSelector((state) => state.user);
+  const { userInfo } = user;
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    toast({ description: 'You have been logout', status: 'success', isClosable: true})
+    navigate('/products');
+  }
+
   return (
     <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
       <Flex h={16} alignItems='center' justifyContent='space-between' >
@@ -64,17 +103,44 @@ const Navbar = () => {
               onClick={() => toggleColorMode()}
             />
           </NavLink>
-          <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>Sign In</Button>
-          <Button
-            as={ReactLink}
-            to='/registration'
-            m={2}
-            display={{ base: 'none', md: 'inline-flex'}}
-            fontSize='sm'
-            fontWeight={600}
-            _hover={{bg: 'orange.400'}}
-            bg='orange.500'
-          >Sign Up</Button>
+          {
+            userInfo ? (
+              <Menu>
+                <MenuButton px='4' py='2' transition='all 0.3s' as={Button}>
+                  {userInfo.name} <ChevronDownIcon />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={ReactLink} to='/profile'>
+                    <CgProfile />
+                    <Text ml='2'>Profile</Text>
+                  </MenuItem>
+                  <MenuItem as={ReactLink} to='/your-orders'>
+                    <MdLocalShipping />
+                    <Text ml='2'>Your orders</Text>
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={logoutHandler}>
+                    <MdLogout />
+                    <Text ml='2'>Logout</Text>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            ) : (
+              <>
+                <Button as={ReactLink} to='/login' p={2} fontSize='sm' fontWeight={400} variant='link'>Sign In</Button>
+                <Button
+                  as={ReactLink}
+                  to='/registration'
+                  m={2}
+                  display={{ base: 'none', md: 'inline-flex'}}
+                  fontSize='sm'
+                  fontWeight={600}
+                  _hover={{bg: 'orange.400'}}
+                  bg='orange.500'
+                >Sign Up</Button>
+              </>
+            )
+          }
         </Flex>
       </Flex>
         {
