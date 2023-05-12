@@ -26,10 +26,26 @@ import { logout } from '../redux/actions/userActions';
 import { MdLocalShipping, MdLogout } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg'
 import React from 'react';
+import { FiShoppingCart } from 'react-icons/fi';
+
+const ShoppingCardIcon = () => {
+  const cartInfo = useSelector(state => state.cart);
+  const { cart } = cartInfo;
+
+  return (
+    <Flex>
+      <Text fontStyle='italic' as='sub' fontSize='xs'>
+        {cart.length}
+      </Text>
+      <Icon ml='-1.5' as={FiShoppingCart} h='4' w='7' alignSelf='center' />
+      <Text>Cart</Text>
+    </Flex>
+  )
+}
 
 const links = [
   { linkName: 'Products', path: './products'},
-  { linkName: 'ShoppingCard', path: './cart'}
+  { linkName: <ShoppingCardIcon />, path: './cart'}
 ];
 
 const NavLink = ({ path, children }) => (
