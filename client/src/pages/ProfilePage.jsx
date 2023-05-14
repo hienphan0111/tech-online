@@ -37,6 +37,7 @@ const ProfilePage = () => {
   useEffect(() => {
     if (updateSuccess) {
       toast({description: 'Profile saved', status: 'success', isClosable: true});
+      dispatch(resetUpdateSuccess());
     }
   }, [toast, updateSuccess]);
 
@@ -54,7 +55,6 @@ const ProfilePage = () => {
         })
       }
       onSubmit={(values) => {
-        dispatch(resetUpdateSuccess());
         dispatch(updateProfile(userInfo._id, values.name, values.email, values.password))
       }}
     >
