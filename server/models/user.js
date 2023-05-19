@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { Await } from 'react-router-dom';
 
 const userSchema = mongoose.Schema({
   name: {

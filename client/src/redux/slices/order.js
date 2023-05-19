@@ -17,23 +17,10 @@ export const orderSlice = createSlice({
     shippingAddressAdd: (state, {payload}) => {
       state.loading = false;
       state.error = null;
-      state.shippingAddressAdd = payload;
-      localStorage.setItem('userInfo', JSON.stringify(state.userInfo));
+      state.shippingAddress = payload;
     },
-    userLogout: (state, {payload}) => {
-      state.loading = false;
-      state.userInfo = null;
-      localStorage.setItem('userInfo', null);
-      state.error = null;
-    },
-    userUpdateProfile: (state, {payload}) => {
-      state.userInfo = payload;
-      state.updateSuccess = true;
-      state.loading = false;
-      state.error = null;
-    },
-    resetUpdate: (state) => {
-      state.updateSuccess = false;
+    clearOrder: (state) => {
+      state.orderInfo = null;
     },
     setError: (state, {payload}) => {
       state.error = payload;
@@ -42,7 +29,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { shippingAddressAdd, userLogout, setLoading, setError } = orderSlice.actions;
+export const { shippingAddressAdd, clearOrder, setError, setLoading } = orderSlice.actions;
 export default orderSlice.reducer;
 
 export const orderSelector = ({state}) => state.order;

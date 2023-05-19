@@ -49,6 +49,13 @@ const cartSlice = createSlice({
       updateLocalStorage(state.cart);
       state.subTotal = calculateSubtotal(state.cart);
     },
+    clearCart: (state) => {
+      state.cart = null;
+      updateLocalStorage(state.cart);
+    },
+    setExpressShipping: (state, {payload}) => {
+      state.expressShipping = payload;
+    },
     setError: (state, { payload }) => {
       state.error = payload;
       state.loading = false;
@@ -56,7 +63,7 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setError, setLoading, cartAddItem, cartRemoveItem } = cartSlice.actions;
+export const { setError, setLoading, cartAddItem, cartRemoveItem, clearCart, setExpressShipping } = cartSlice.actions;
 
 export default cartSlice.reducer;
 

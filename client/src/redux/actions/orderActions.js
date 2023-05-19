@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { shippingAddressAdd, setError } from '../slices/order';
+import { shippingAddressAdd, setError, clearOrder } from '../slices/order';
 
 export const setShippingAddress = (data) => async (dispatch) => {
   dispatch(shippingAddressAdd(data));
@@ -35,4 +35,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
       )
     );
   }
+}
+
+export const resetOrder = () => (dispatch) => {
+  dispatch(clearOrder());
 }
