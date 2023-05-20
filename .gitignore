@@ -12,6 +12,7 @@ node_modules/
 # production
 /build
 images
+/client/src/client_id.js
 # misc
 .DS_Store
 .env.local
