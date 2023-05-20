@@ -16,13 +16,17 @@ import { Box,
   Button,
   SimpleGrid,
   useToast,
+  Tooltip,
+  Input,
+  Textarea,
 } from '@chakra-ui/react';
 import { MinusIcon, StarIcon, SmallAddIcon } from '@chakra-ui/icons';
 import { BiPackage, BiCheckShield, BiSupport, BiPlus } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProduct } from '../redux/actions/productActions';
+import { createProductReview, getProduct, resetProductError } from '../redux/actions/productActions';
 import { addCartItem } from '../redux/actions/cartActions';
 import { useEffect, useState } from 'react';
+import Rating from '../components/Rating';
 
 const ProductPage = () => {
 
@@ -30,16 +34,32 @@ const ProductPage = () => {
   let { id } = useParams();
   const toast = useToast();
 
+  const [comment, setComment] = useState('');
+  const [rating, setRating] = useState(1);
+  const [title, setTitle] = useState('');
+  const [reviewBoxOpen, setReviewBoxOpen] = useState(false);
+
+
   const dispatch = useDispatch();
+
   const productsState = useSelector((state) => state.products);
-  const { loading, error, product } = productsState;
+  const { loading, error, product, reviewSend } = productsState;
 
   const cartContent = useSelector((state) => state.cart);
   const { cart } = cartContent;
 
+  const user = useSelector(state => state.user );
+  const { userInfo } = user;
+
   useEffect(() => {
-    dispatch(getProduct(id))
-  }, [dispatch]);
+    dispatch(getProduct(id));
+
+    if (reviewSend) {
+      toast({ description: 'Product review saved', status: 'success', isClosable: true});
+      dispatch(resetProductError());
+      setReviewBoxOpen(false);
+    }
+  }, [dispatch, id, cart, reviewSend]);
 
   const changeAmount = (input) => {
     if (input === 'plus') {
@@ -50,9 +70,15 @@ const ProductPage = () => {
     }
   }
 
+  const hasUserReviewed = () => product.reviews.some((item) => item.user === userInfo._id);
+
   const addItem = () => {
     dispatch(addCartItem(product._id, amount));
     toast({description: 'The product has added successufuly', status: 'success'})
+  }
+
+  const onSubmit = () => {
+    dispatch(createProductReview(product._id, userInfo._id, comment, rating, title));
   }
 
   return (
@@ -95,13 +121,7 @@ const ProductPage = () => {
                     <Box>
                       <Text fontSize='xl'>${product.price}</Text>
                       <Flex>
-                        <HStack spacing='2px'>
-                          <StarIcon color='orange.500' />
-                          <StarIcon color={product.rating >=2 ? 'orange.500' : 'gray.200'} />
-                          <StarIcon color={product.rating >=3 ? 'orange.500' : 'gray.200'} />
-                          <StarIcon color={product.rating >=4 ? 'orange.500' : 'gray.200'} />
-                          <StarIcon color={product.rating >=5 ? 'orange.500' : 'gray.200'} />
-                        </HStack>
+                        <Rating numOfStar={rating} />
                         <Text fontSize='md' fontWeight='bold' ml='4px'>
                           {product.numberOfReviews} Reviews
                         </Text>
@@ -149,6 +169,46 @@ const ProductPage = () => {
                   <Image mb='30px' src={product.image} alt={product.name} />
                 </Flex>
             </Stack>
+            {
+              userInfo && (
+                <>
+                  <Tooltip label={hasUserReviewed() ? 'You have already reviewed this product' : ''} fontSize="md">
+                    <Button isDisabled={hasUserReviewed()} my="20px" w="140px" colorScheme="orange" onClick={()=> setReviewBoxOpen(!reviewBoxOpen)}>Write a review</Button>
+                  </Tooltip>
+                  {reviewBoxOpen && (
+                    <Stack mb="20px">
+                      <Wrap>
+                        <HStack spacing="2px">
+                          <Button cariant="outline" onClick={() => setRating(1)}>
+                            <StarIcon color="orange.500" />
+                          </Button>
+                          <Button variant="outline" onClick={() => setRating(2)}>
+                            <StarIcon color={ rating >=2 ? "orange.500" : "gray.200"}  />
+                          </Button>
+                          <Button variant="outline" onClick={() => setRating(3)}>
+                            <StarIcon color={ rating >=3 ? "orange.500" : "gray.200"}  />
+                          </Button>
+                          <Button variant="outline" onClick={() => setRating(4)}>
+                            <StarIcon color={ rating >=4 ? "orange.500" : "gray.200"}  />
+                          </Button>
+                          <Button variant="outline" onClick={() => setRating(5)}>
+                            <StarIcon color={ rating >=5 ? "orange.500" : "gray.200"}  />
+                          </Button>
+                        </HStack>
+                      </Wrap>
+                      <Input onChange={(e) => setTitle(e.target.value)} placeholder="ReviewTitle" />
+                      <Textarea
+                        onChange={(e) => {
+                          setComment(e.target.value);
+                        }}
+                        placeholder={`The ${product.name} is...`}
+                      />
+                      <Button w="140px" colorScheme='orange' onClick={() => onSubmit()}>Pushlish review</Button>
+                    </Stack>
+                  )}
+                </>
+              )
+            }
             <Stack>
               <Text fontSize='xl' fontWeight='bold'>Reviews</Text>
               <SimpleGrid minChildWild='300px' spacinY='20px'>
@@ -156,25 +216,21 @@ const ProductPage = () => {
                   product.reviews.map((item) => (
                     <Box key={item._id}>
                       <Flex spacing alignItems='center'>
-                        <StarIcon color='orange.500' />
-                        <StarIcon color={item.rating >=2 ? 'orange.500' : 'gray.200'} />
-                        <StarIcon color={item.rating >=3 ? 'orange.500' : 'gray.200'} />
-                        <StarIcon color={item.rating >=4 ? 'orange.500' : 'gray.200'} />
-                        <StarIcon color={item.rating >=5 ? 'orange.500' : 'gray.200'} />
+                        <Rating numOfStar={item.rating} />
                         <Text fontWeight='semibold' ml='4px'>
                           {item.title && item.title}
                         </Text>
                       </Flex>
                       <Box py='12px'>{item.comment}</Box>
                       <Text fontSize='sm' color='gray.400'>
-                        by {item.name}, { new Date(item.createAt).toDateString()}
+                        by {item.name}, { new Date(item.createdAt).toDateString()}
                       </Text>
                     </Box>
                   ))
                 }
               </SimpleGrid>
             </Stack>
-            </Box>
+          </Box>
         )
       }
     </Wrap>

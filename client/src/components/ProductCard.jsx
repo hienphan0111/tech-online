@@ -20,22 +20,7 @@ import { StarIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCartItem } from '../redux/actions/cartActions';
-
-const Rating = ({ rating, numberOfReviews }) => {
-  const [iconSize, setIconSize] = useState('14px');
-  return (
-    <Flex justifyContent='space-between'>
-      <HStack spacing='2px'>
-        <StarIcon size={iconSize} w='14px' color='orange.500' />
-        <StarIcon size={iconSize} w='14px' color={rating >= 2 ? 'orange.500' : 'gray.300'} />
-        <StarIcon size={iconSize} w='14px' color={rating >= 3 ? 'orange.500' : 'gray.300'} />
-        <StarIcon size={iconSize} w='14px' color={rating >= 4 ? 'orange.500' : 'gray.300'} />
-        <StarIcon size={iconSize} w='14px' color={rating >= 5 ? 'orange.500' : 'gray.300'} />
-      </HStack>
-      <Text>{numberOfReviews} {numberOfReviews > 1 ? 'Reviews' : 'Review'}</Text>
-    </Flex>
-  )
-}
+import Rating from './Rating';
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -97,7 +82,7 @@ const ProductCard = ({ product }) => {
         </Link>
       </Flex>
       <Flex justifyContent='space-between' alignContent='center' py='2'>
-        <Rating rating={rating} numberOfReviews={numberOfReviews} />
+        <Rating numOfStar={rating} />
       </Flex>
       <Flex justify='space-between' >
         <Box fontSize='2x1' color={useColorModeValue('gray.800', 'white')} pl='2' fontWeight='bold'>
