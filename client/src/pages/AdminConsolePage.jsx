@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import UsersTab from '../components/UsersTab';
 
 const AdminConsolePage = () => {
   const user = useSelector(state => state.user);
@@ -33,7 +34,7 @@ const AdminConsolePage = () => {
               </TabList>
               <TabPanels>
                 <TabPanel>
-                  {/* <UsersTab /> */}
+                  <UsersTab />
                 </TabPanel>
               </TabPanels>
             </Tabs>
