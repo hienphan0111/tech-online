@@ -2,7 +2,8 @@ import express from 'express';
 import User from '../models/User.js';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
-import protectRoute from '../middleware/authenticateMiddleware.js';
+import {protectRoute, admin } from '../middleware/authenticateMiddleware.js';
+import Order from '../models/Order.js';
 
 const userRoutes = express.Router();
 
@@ -13,8 +14,6 @@ const getToken = (id) => {
 const loginUser = asyncHandler(async(req, res) => {
   const { email, password} = req.body;
   const user = await User.findOne({email});
-
-  console.log(user.creaetAt);
 
   if( user && (await user.matchPasswords(password))) {
     res.json({
@@ -86,8 +85,36 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const getUserOrders = asyncHandler(async(req, res) => {
+  const orders = await Order.find({user: req.params.id});
+  if (orders) {
+    res.json(orders);
+  } else {
+    res.status(404);
+    throw new Error('No order found');
+  }
+})
+
+const getUsers = asyncHandler(async(req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+const deleteUser = asyncHandler(async(req, res) => {
+  try {
+    const user = await User.findByIdAndRemove(req.params.id);
+    res.json(user);
+  } catch (err) {
+    res.status(404);
+    throw new Error('This user could not be found');
+  }
+});
+
 userRoutes.route('/login').post(loginUser);
 userRoutes.route('/register').post(registerUser);
 userRoutes.route('/profile/:id').put(protectRoute, updateUserProfile);
+userRoutes.route('/:id').get(protectRoute, getUserOrders);
+userRoutes.route('/').get(protectRoute, admin, getUsers);
+userRoutes.route('/:id').delete(protectRoute, admin, deleteUser);
 
 export default userRoutes;

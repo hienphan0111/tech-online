@@ -17,19 +17,24 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   brand: {
     type: String,
     required: true,
+    default: 0
   },
   category: {
     type: String,
     required: true,
   },
-  description: {
-    type: String,
+  price: {
+    type: Number,
     required: true,
+    default: 0,
   },
-  reviews: {reviewSchema},
   rating: {
     type: Number,
     required: true,
@@ -39,19 +44,15 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  brand: {
-    type: Number,
-    required: true,
-    default: 0
+  productIsNew: {
+    type: Boolean,
+    default: false,
   },
+  reviews: [reviewSchema],
   stock: {
     type: Number,
     required: true,
     default: 0,
-  },
-  productIsNew: {
-    type: Boolean,
-    default: false,
   },
 }, {timestamps: true});
 
