@@ -15,6 +15,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     user: { userInfo },
   } = getState();
 
+  console.log(order);
   const preparedOrder = { ...order, shippingAddress};
   try {
     const config = {

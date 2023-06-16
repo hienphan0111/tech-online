@@ -28,9 +28,9 @@ const Home = () => (
         <Stack spacing={{ base: '8', lg: '10' }}>
           <Stack spacing={{ base: '2', lg: '4' }}>
             <Flex alignItems='center'>
-              <Icon as={GiTechnoHeart} h={12} w={12} color={useColorModeValue('orange.500', 'orange.300')} />
+              <Image src='/favicon.png' h={12} w={12} color={useColorModeValue('orange.500', 'orange.300')} />
               <Heading size="4xl" color={useColorModeValue('orange.500', 'orange.300')}>
-                Techline
+                Newtech
               </Heading>
             </Flex>
             <Heading size="xl" fontWeight="normal">
@@ -47,7 +47,7 @@ const Home = () => (
       </Box>
       <Flex flex="1" overflow="hidden">
         <Image
-          src="images/landing.jpg"
+          src="/images/Ai-human.jpg"
           alt="Lovely Image"
           fallback={<Skeleton />}
           maxH="450px"

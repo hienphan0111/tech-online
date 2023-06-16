@@ -1,12 +1,12 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import Order from '../models/Order.js';
-import {protectRoute} from '../middleware/authenticateMiddleware.js';
+import {protectRoute, admin} from '../middleware/authenticateMiddleware.js';
 
 const orderRoutes = express.Router();
 
 const createOrder = asyncHandler( async(req, res) => {
-  const { orderItems, shippingAddress, paymentMethod, shippingPrice, totalPrice, paymentDetails, userInfo } = req.body;
+  const { orderItems, shippingAddress, paymentMethod, shippingPrice, totalPrice, paymentDetail, userInfo } = req.body;
 
   if (orderItems && orderItems.length === 0) {
     res.status(400);
@@ -15,10 +15,11 @@ const createOrder = asyncHandler( async(req, res) => {
     const order = new Order({
       orderItems,
       user: userInfo._id,
-      userName: userInfo.name,
+      username: userInfo.name,
       email: userInfo.email,
       shippingAddress,
       paymentMethod,
+      paymentDetail,
       shippingPrice,
       totalPrice,
     });
@@ -29,6 +30,40 @@ const createOrder = asyncHandler( async(req, res) => {
 
 });
 
-orderRoutes.route('/order').post(protectRoute, createOrder);
+const getOrders = async (req, res) => {
+  const orders = await Order.find({});
+  res.json(orders);
+};
+
+const deleteOrder = asyncHandler(async(req, res) => {
+  const order = await Order.findByIdAndDelete(req.params.id);
+
+  if (order) {
+    res.json(order)
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+const setDelivered = asyncHandler(async(req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  console.log(req.body);
+  if (order) {
+    order.isDelivered = true;
+    const updateOrder = await order.save();
+    res.json(updateOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order could not be updated')
+  }
+});
+
+
+orderRoutes.route('/:id').delete(protectRoute, admin, deleteOrder);
+orderRoutes.route('/').post(protectRoute, createOrder);
+orderRoutes.route('/:id').put(protectRoute, admin, setDelivered);
+orderRoutes.route('/').get(protectRoute, admin, getOrders);
 
 export default orderRoutes;

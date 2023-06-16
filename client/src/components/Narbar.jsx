@@ -17,6 +17,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Image
 } from '@chakra-ui/react';
 import { Link as ReactLink, useNavigate } from 'react-router-dom';
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon, ChevronDownIcon } from '@chakra-ui/icons';
@@ -83,8 +84,8 @@ const Navbar = () => {
         <HStack>
           <Link as={ReactLink} to=''>
             <Flex alignItems='center'>
-              <Icon as={GiTechnoHeart} h={6} w={6} color='orange.400' />
-              <Text fontWeight='extrabold'>Tech Lines</Text>
+              <Image src="/favicon.png" h={6} w={6} color='orange.400' />
+              <Text fontWeight='extrabold'>New Tech</Text>
             </Flex>
           </Link>
           <HStack as='nav' display={{ base: 'none', md: 'flex'}}>

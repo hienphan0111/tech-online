@@ -2,7 +2,7 @@ import { HStack } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
 const Rating = ({numOfStar}) => {
-  console.log(numOfStar);
+
   return (
     <HStack spacing='2px'>
       {
