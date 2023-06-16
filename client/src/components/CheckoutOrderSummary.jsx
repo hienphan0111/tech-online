@@ -60,11 +60,15 @@ const CheckoutOrderSummary = () => {
   }
 
   const onPaymentSuccess = async (data) => {
+
     onSuccessOpen();
     dispatch(createOrder({
       orderItems: cart,
       paymentMethod: data.paymentSource,
-      paymentDetails: data,
+      paymentDetail: {
+        orderId: data.orderID,
+        paymentId: data.paymentID,
+      },
       shippingPrice: shipping(),
       totalPrice: total(),
       userInfo,
