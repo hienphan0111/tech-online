@@ -32,7 +32,7 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Space traveler's hub <a name="about-project"></a>
+# 📖 Shop tech device <a name="about-project"></a>
 
 Full functions online shop
 
@@ -44,7 +44,7 @@ Full functions online shop
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 🚀 Live Demo <a name="live-demo"></a>
-To see the demo version, you can <a href=""> Click here </a>
+To see the demo version, you can <a href="https://newtech-seven.vercel.app/"> Click here </a>
 
 <!-- GETTING STARTED -->
 
@@ -61,11 +61,11 @@ To get a local copy up and running, follow these steps.
 
 1. Download the **Zip** file or clone the repo with:
 ```bash
-git clone https://github.com/hienphan/newtech-frontend
+git clone https://github.com/hienphan/tech-online
 ```
 3. To access cloned directory run:
 ```bash
-cd newtech-frontend
+cd tech-online
 ```
 3. Open it with the live server
 
