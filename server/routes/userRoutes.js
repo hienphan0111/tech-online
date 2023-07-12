@@ -15,7 +15,7 @@ const loginUser = asyncHandler(async(req, res) => {
   const { email, password} = req.body;
   const user = await User.findOne({email});
 
-  if( user && (await user.matchPasswords(password))) {
+  if( user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user._id,
       name: user.name,
@@ -39,10 +39,12 @@ const registerUser = asyncHandler(async(req, res) => {
     throw new Error('We have already an account with that email address');
   }
 
+  const encryptPassword = await bcrypt.hash(password, 10);
+
   const user = await User.create({
     name,
     email,
-    password,
+    password: encryptPassword,
   });
 
   if (user) {
